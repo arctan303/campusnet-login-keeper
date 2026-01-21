@@ -6,7 +6,17 @@ CONFIG_FILE="$SCRIPT_DIR/config.conf"
 LOGIN_SCRIPT="$SCRIPT_DIR/campus_login.sh"
 KEEPALIVE_SCRIPT="$SCRIPT_DIR/keepalive.sh"
 LOG_FILE="/tmp/campus_login.log"
-BASE_DOMAIN="arctan.top/github"
+
+# 默认使用 GitHub 源，可通过环境变量或参数覆盖
+# 使用方法: 
+#   从 GitHub: sh install.sh
+#   从备用源: USE_MIRROR=1 sh install.sh 或 sh install.sh mirror
+if [ "$USE_MIRROR" = "1" ] || [ "$1" = "mirror" ]; then
+    BASE_DOMAIN="arctan.top/share/scripts/campus"
+    print_info "使用备用源: $BASE_DOMAIN"
+else
+    BASE_DOMAIN="raw.githubusercontent.com/arctan303/campusnet-login-keeper/main"
+fi
 # ===========================================
 
 # 颜色定义
