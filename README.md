@@ -1,208 +1,240 @@
-# CampusNet Login Keeper（校园网自动认证/保活脚本）
+# Dr.COM 广州热点校园网自动登录、保活脚本
 
-一个用于 **校园网自动登录**、**掉线自动重连**、可配合 **systemd/cron** 长期运行的脚本集合。
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Shell Script](https://img.shields.io/badge/shell-bash-green.svg)](https://www.gnu.org/software/bash/)
 
-仓库地址：<https://github.com/arctan303/campusnet-login-keeper>
+适用于 Dr.COM 广州热点校园网的自动登录和保活脚本，支持路由器和 Linux 系统。
 
----
+## 功能特性
 
-## 特性
+- 🚀 自动登录校园网
+- 🔄 自动保活，防止掉线
+- ⚙️ 一键安装配置
+- 📝 详细日志记录
+- 🔧 支持多种登录方式
+- 💾 配置持久化保存
 
-- ✅ 自动认证登录（账号密码）
-- ✅ 断网/掉线自动检测并重连
-- ✅ 日志记录，便于排查
-- ✅ 可选自启动（systemd / cron，视脚本实现）
-- ✅ 适用于 Linux / 路由器 OpenWrt（如脚本支持）
+## 快速安装
 
----
+### 方法一：一键安装（推荐）
 
-## 快速开始
-
-### 1）一键运行（推荐）
-
-> 直接从 GitHub RAW 拉取并执行 `install.sh`  
-> **注意：执行前请确认你信任该仓库脚本。**
-
-#### 方式 A：下载到本地再执行（更稳、更好排查）
+使用 GitHub 源（推荐）：
 
 ```bash
-# 下载
-curl -fL -o /tmp/install.sh https://raw.githubusercontent.com/arctan303/campusnet-login-keeper/main/install.sh \
-  || wget -O /tmp/install.sh https://raw.githubusercontent.com/arctan303/campusnet-login-keeper/main/install.sh
+# 直接运行安装脚本
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/arctan303/campusnet-login-keeper/main/install.sh)"
+```
 
-# 赋权 + 执行
-chmod +x /tmp/install.sh
-sudo /tmp/install.sh
-
-````
-
-#### 方式 B：不落盘，直接执行（更简洁）
+或使用备用源：
 
 ```bash
-# curl 方式
-sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/arctan303/campusnet-login-keeper/main/install.sh)"
-
-# 或 wget 方式
-sudo sh -c "$(wget -qO- https://raw.githubusercontent.com/arctan303/campusnet-login-keeper/main/install.sh)"
+# 使用网站源（备用）
+sh -c "$(curl -fsSL https://arctan.top/github/install.sh)" || sh -c "$(curl -fsSL http://arctan.top/github/install.sh)"
 ```
 
----
+### 方法二：分步安装
 
-### 2）国内网络备用源（可选）
-
-> 如果你所在网络访问 `raw.githubusercontent.com` 不稳定，可尝试下面备用（不保证长期可用）。
-
-#### 备用 1：ghproxy（示例）
+从 GitHub 下载：
 
 ```bash
-sudo sh -c "$(curl -fsSL https://ghproxy.com/https://raw.githubusercontent.com/arctan303/campusnet-login-keeper/main/install.sh)"
+# 下载安装脚本
+curl -fsSL -o install.sh https://raw.githubusercontent.com/arctan303/campusnet-login-keeper/main/install.sh
+
+# 设置执行权限
+chmod +x install.sh
+
+# 运行安装脚本
+./install.sh
 ```
 
-#### 备用 2：fastgit（示例）
+从备用源下载：
 
 ```bash
-sudo sh -c "$(curl -fsSL https://raw.fastgit.org/arctan303/campusnet-login-keeper/main/install.sh)"
+# 下载安装脚本
+curl -fsSL -o install.sh https://arctan.top/github/install.sh || curl -fsSL -o install.sh http://arctan.top/github/install.sh
+
+# 设置执行权限
+chmod +x install.sh
+
+# 运行安装脚本
+./install.sh
 ```
 
----
-
-## 安装后文件位置（以 install.sh 实际行为为准）
-
-> 下面是“建议结构”。如果你的 install.sh 已经固定了目录，请以脚本为准并把此处改成一致。
-
-常见约定例如：
-
-* 配置文件：`/data/school_net/config.conf`
-* 登录脚本：`/data/school_net/campus_login.sh`
-* 保活脚本：`/data/school_net/keepalive.sh`
-* 日志文件：`/tmp/campus_login.log`
-
----
-
-## 配置说明
-
-安装完成后一般需要配置账号密码/认证地址等（示例）：
+### 方法三：使用 wget
 
 ```bash
-sudo nano /data/school_net/config.conf
+# 从 GitHub 下载
+wget -O install.sh https://raw.githubusercontent.com/arctan303/campusnet-login-keeper/main/install.sh
+
+# 或从备用源下载
+wget -O install.sh https://arctan.top/github/install.sh || wget -O install.sh http://arctan.top/github/install.sh
+
+# 设置执行权限并运行
+chmod +x install.sh && ./install.sh
 ```
 
-常见配置项示例（仅示意，按你的脚本实际字段调整）：
 
-```conf
-USERNAME="你的账号"
-PASSWORD="你的密码"
-# LOGIN_URL="http://xxx/login"
-# CHECK_URL="https://www.baidu.com"
-```
+## 使用说明
 
----
+### 安装后配置
 
-## 运行与测试
+安装脚本会自动完成以下操作：
 
-### 手动运行（测试用）
+1. 下载登录和保活脚本
+2. 引导配置账号密码
+3. 设置系统自启动
+4. 启动保活服务
+
+### 手动配置
+
+如需修改配置，编辑配置文件：
 
 ```bash
-# 登录脚本（示例）
-sudo /data/school_net/campus_login.sh
-
-# 保活脚本（示例）
-sudo /data/school_net/keepalive.sh
+vi /data/school_net/config.conf
 ```
 
-### 查看日志
+配置项说明：
 
 ```bash
-tail -n 200 /tmp/campus_login.log
+USERNAME="你的学号"          # 校园网账号
+PASSWORD="你的密码"          # 校园网密码
+LOGIN_TYPE="1"              # 登录方式：1-PC 2-移动设备
+CHECK_INTERVAL="60"         # 保活检测间隔（秒）
 ```
 
----
-
-
-### systemd（推荐，Linux）
-
-> 以下仅为模板。服务文件/路径请按你项目实际脚本路径修改。
-
-创建服务文件：
+### 手动控制
 
 ```bash
-sudo tee /etc/systemd/system/campusnet-login-keeper.service >/dev/null <<'EOF'
-[Unit]
-Description=CampusNet Login Keeper
-After=network-online.target
-Wants=network-online.target
+# 测试登录
+/data/school_net/campus_login.sh
 
-[Service]
-Type=simple
-ExecStart=/data/school_net/keepalive.sh
-Restart=always
-RestartSec=10
+# 启动保活服务
+/data/school_net/keepalive.sh &
 
-[Install]
-WantedBy=multi-user.target
-EOF
+# 查看运行日志
+tail -f /tmp/campus_login.log
+
+# 停止保活服务
+killall keepalive.sh
 ```
 
-启动并设置开机自启：
+## 文件说明
 
+| 文件路径 | 说明 |
+|---------|------|
+| `/data/school_net/config.conf` | 配置文件（账号密码等） |
+| `/data/school_net/campus_login.sh` | 登录脚本 |
+| `/data/school_net/keepalive.sh` | 保活脚本 |
+| `/tmp/campus_login.log` | 运行日志 |
+
+## 常见问题
+
+### 下载失败
+
+**问题**：无法下载安装脚本
+
+**解决方案**：
+- 检查网络连接是否正常
+- 尝试使用备用源（网站源）
+- 如果 GitHub 访问困难，使用 `https://arctan.top/github/install.sh`
+- 检查防火墙设置
+
+### 权限问题
+
+**问题**：提示权限不足
+
+**解决方案**：
 ```bash
-sudo systemctl daemon-reload
-sudo systemctl enable --now campusnet-login-keeper
-sudo systemctl status campusnet-login-keeper --no-pager
+# 确保使用 root 用户运行
+sudo su
+
+# 检查文件权限
+ls -l install.sh
+
+# 重新设置权限
+chmod +x install.sh
 ```
 
----
+### 脚本无法执行
+
+**问题**：脚本下载后无法运行
+
+**解决方案**：
+```bash
+# 检查脚本格式
+file install.sh
+
+# 修复 Windows 换行符问题
+sed -i 's/\r$//' install.sh
+
+# 重新设置权限
+chmod +x install.sh
+```
+
+### 登录失败
+
+**问题**：脚本运行但无法登录
+
+**解决方案**：
+- 检查账号密码是否正确
+- 确认登录方式（LOGIN_TYPE）是否正确
+- 查看日志文件：`cat /tmp/campus_login.log`
+- 手动测试登录：`/data/school_net/campus_login.sh`
+
+### 保活服务未启动
+
+**问题**：安装后仍然掉线
+
+**解决方案**：
+```bash
+# 检查保活进程是否运行
+ps | grep keepalive
+
+# 手动启动保活服务
+/data/school_net/keepalive.sh &
+
+# 检查系统自启动配置
+cat /etc/rc.local
+```
 
 ## 卸载
 
+如需卸载脚本：
 
 ```bash
-sudo systemctl disable --now campusnet-login-keeper 2>/dev/null || true
-sudo rm -f /etc/systemd/system/campusnet-login-keeper.service
-sudo systemctl daemon-reload
+# 停止保活服务
+killall keepalive.sh
 
-sudo rm -rf /data/school_net
-sudo rm -f /tmp/campus_login.log
+# 删除脚本文件
+rm -rf /data/school_net
+
+# 移除自启动配置（根据实际情况修改）
+# 编辑 /etc/rc.local 或相应的启动脚本，删除相关行
 ```
+
+## 支持的系统
+
+- ✅ OpenWrt 路由器
+- ✅ Linux 系统（Debian/Ubuntu/CentOS 等）
+- ✅ 其他支持 Bash 的 Unix-like 系统
+
+## 贡献
+
+欢迎提交 Issue 和 Pull Request！
+
+## 许可证
+
+MIT License
+
+## 相关链接
+
+- 项目主页：[GitHub](https://github.com/arctan303/campusnet-login-keeper)
+- 备用下载：[https://arctan.top/github/](https://arctan.top/github/)
+
+## 更新日志
+
+查看 [CHANGELOG.md](CHANGELOG.md) 了解版本更新历史。
 
 ---
 
-## 常见问题（FAQ）
-
-### 1. 下载失败 / 连接 raw 失败
-
-* 尝试上面的 “国内备用源”
-* 或换 DNS / 换网络
-* 确认系统时间正确（HTTPS 证书验证会受影响）
-
-### 2. 权限问题
-
-请使用 root 或 sudo：
-
-```bash
-sudo /tmp/install.sh
-```
-
-### 3. 脚本提示 `^M` / 无法执行
-
-可能是 Windows 换行符导致，修复：
-
-```bash
-sed -i 's/\r$//' /tmp/install.sh
-chmod +x /tmp/install.sh
-```
-
----
-
-## License
-
-MIT（如果你仓库不是 MIT，改成实际许可证）
-
-```
-
----
-
-### 我还可以顺手帮你把 README 做到“完全贴合脚本”
-现在我只能按“常见 install.sh 行为”写模板。你把仓库里的 **install.sh / keepalive.sh / config 示例**贴出来（或把文件发我），我可以把 README 里这些地方改成**100% 对应你的真实路径、参数名、systemd 服务名、日志位置**。
-```
-
+**注意**：本脚本仅供学习交流使用，请遵守学校网络使用规定。
