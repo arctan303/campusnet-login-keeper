@@ -1,4 +1,3 @@
-````md
 # CampusNet Login Keeper（校园网自动认证/保活脚本）
 
 一个用于 **校园网自动登录**、**掉线自动重连**、可配合 **systemd/cron** 长期运行的脚本集合。
@@ -34,6 +33,7 @@ curl -fL -o /tmp/install.sh https://raw.githubusercontent.com/arctan303/campusne
 # 赋权 + 执行
 chmod +x /tmp/install.sh
 sudo /tmp/install.sh
+
 ````
 
 #### 方式 B：不落盘，直接执行（更简洁）
@@ -118,7 +118,6 @@ tail -n 200 /tmp/campus_login.log
 
 ---
 
-## 自启动（如果 install.sh 已帮你配置可忽略）
 
 ### systemd（推荐，Linux）
 
@@ -154,27 +153,8 @@ sudo systemctl status campusnet-login-keeper --no-pager
 
 ---
 
-## 更新脚本
+## 卸载
 
-如果你的 install.sh 支持 update 参数（建议你在脚本里实现），可以这样：
-
-```bash
-sudo /tmp/install.sh update
-```
-
-或简单粗暴重新跑一遍安装也行（以脚本实现为准）。
-
----
-
-## 卸载（建议在脚本里提供 uninstall）
-
-如果你提供了卸载逻辑：
-
-```bash
-sudo /tmp/install.sh uninstall
-```
-
-没有的话就手动删除（示例）：
 
 ```bash
 sudo systemctl disable --now campusnet-login-keeper 2>/dev/null || true
@@ -225,3 +205,4 @@ MIT（如果你仓库不是 MIT，改成实际许可证）
 ### 我还可以顺手帮你把 README 做到“完全贴合脚本”
 现在我只能按“常见 install.sh 行为”写模板。你把仓库里的 **install.sh / keepalive.sh / config 示例**贴出来（或把文件发我），我可以把 README 里这些地方改成**100% 对应你的真实路径、参数名、systemd 服务名、日志位置**。
 ```
+
