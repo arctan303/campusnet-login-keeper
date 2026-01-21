@@ -29,7 +29,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/arctan303/campusnet-login-
 
 ```bash
 # 使用网站源（备用）
-sh -c "$(curl -fsSL https://arctan.top/github/install.sh)" || sh -c "$(curl -fsSL http://arctan.top/github/install.sh)"
+sh -c "$(curl -fsSL https://arctan.top/share/scripts/campus/install.sh)" || sh -c "$(curl -fsSL http://arctan.top/share/scripts/campus/install.sh)"
 ```
 
 ### 方法二：分步安装
@@ -51,7 +51,7 @@ chmod +x install.sh
 
 ```bash
 # 下载安装脚本
-curl -fsSL -o install.sh https://arctan.top/github/install.sh || curl -fsSL -o install.sh http://arctan.top/github/install.sh
+curl -fsSL -o install.sh https://arctan.top/share/scripts/campus/install.sh || curl -fsSL -o install.sh http://arctan.top/share/scripts/campus/install.sh
 
 # 设置执行权限
 chmod +x install.sh
@@ -67,7 +67,7 @@ chmod +x install.sh
 wget -O install.sh https://raw.githubusercontent.com/arctan303/campusnet-login-keeper/main/install.sh
 
 # 或从备用源下载
-wget -O install.sh https://arctan.top/github/install.sh || wget -O install.sh http://arctan.top/github/install.sh
+wget -O install.sh https://arctan.top/share/scripts/campus/install.sh || wget -O install.sh http://arctan.top/share/scripts/campus/install.sh
 
 # 设置执行权限并运行
 chmod +x install.sh && ./install.sh
@@ -136,7 +136,7 @@ killall keepalive.sh
 **解决方案**：
 - 检查网络连接是否正常
 - 尝试使用备用源（网站源）
-- 如果 GitHub 访问困难，使用 `https://arctan.top/github/install.sh`
+- 如果 GitHub 访问困难，使用 `https://arctan.top/share/scripts/campus/install.sh`
 - 检查防火墙设置
 
 ### 权限问题
@@ -229,7 +229,7 @@ MIT License
 ## 相关链接
 
 - 项目主页：[GitHub](https://github.com/arctan303/campusnet-login-keeper)
-- 备用下载：[https://arctan.top/github/](https://arctan.top/github/)
+- 备用下载：[https://arctan.top/share/scripts/campus/](https://arctan.top/share/scripts/campus/)
 
 ## 更新日志
 
