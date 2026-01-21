@@ -14,6 +14,22 @@
 - 🔧 支持多种登录方式
 - 💾 配置持久化保存
 
+## 下载源说明
+
+本项目提供两个下载源：
+
+1. **GitHub 源**（主源，推荐）
+   - 地址：`raw.githubusercontent.com/arctan303/campusnet-login-keeper/main/`
+   - 优点：官方源，版本最新
+   - 适用：GitHub 访问正常的用户
+
+2. **备用源**（镜像）
+   - 地址：`arctan.top/share/scripts/campus/`
+   - 优点：国内访问速度快
+   - 适用：GitHub 访问困难的用户
+
+安装脚本默认从 GitHub 下载文件，如需使用备用源，请参考下方安装说明。
+
 ## 快速安装
 
 ### 方法一：一键安装（推荐）
@@ -28,7 +44,10 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/arctan303/campusnet-login-
 或使用备用源：
 
 ```bash
-# 使用网站源（备用）
+# 使用网站源（备用）- 方法1：环境变量
+USE_MIRROR=1 sh -c "$(curl -fsSL https://raw.githubusercontent.com/arctan303/campusnet-login-keeper/main/install.sh)"
+
+# 使用网站源（备用）- 方法2：直接从备用源下载
 sh -c "$(curl -fsSL https://arctan.top/share/scripts/campus/install.sh)" || sh -c "$(curl -fsSL http://arctan.top/share/scripts/campus/install.sh)"
 ```
 
@@ -50,7 +69,12 @@ chmod +x install.sh
 从备用源下载：
 
 ```bash
-# 下载安装脚本
+# 方法1：从 GitHub 下载安装脚本，但使用备用源下载其他文件
+curl -fsSL -o install.sh https://raw.githubusercontent.com/arctan303/campusnet-login-keeper/main/install.sh
+chmod +x install.sh
+USE_MIRROR=1 ./install.sh
+
+# 方法2：直接从备用源下载安装脚本
 curl -fsSL -o install.sh https://arctan.top/share/scripts/campus/install.sh || curl -fsSL -o install.sh http://arctan.top/share/scripts/campus/install.sh
 
 # 设置执行权限
@@ -65,12 +89,27 @@ chmod +x install.sh
 ```bash
 # 从 GitHub 下载
 wget -O install.sh https://raw.githubusercontent.com/arctan303/campusnet-login-keeper/main/install.sh
+chmod +x install.sh && ./install.sh
 
 # 或从备用源下载
 wget -O install.sh https://arctan.top/share/scripts/campus/install.sh || wget -O install.sh http://arctan.top/share/scripts/campus/install.sh
 
 # 设置执行权限并运行
 chmod +x install.sh && ./install.sh
+```
+
+### 使用备用源下载脚本文件
+
+如果 GitHub 访问困难，可以让安装脚本使用备用源下载其他文件：
+
+```bash
+# 方法1：使用环境变量
+USE_MIRROR=1 sh -c "$(curl -fsSL https://raw.githubusercontent.com/arctan303/campusnet-login-keeper/main/install.sh)"
+
+# 方法2：使用参数
+curl -fsSL -o install.sh https://raw.githubusercontent.com/arctan303/campusnet-login-keeper/main/install.sh
+chmod +x install.sh
+./install.sh mirror
 ```
 
 
